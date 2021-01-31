@@ -10,14 +10,11 @@ def keygen():
     return pk,sk
 
 def encrypt(pk,m):
-    q = (p-1)/2
-    r = random.randint(1, q)
+    r = random.randint(1, p)
     c1 = pow(g, r, p)
-    hrm= (pow(pk, r)) * m
-    c2 = pow(hrm, 1, p)
+    c2 = pow((pow(pk, r, p) * pow(m, 1, p)), 1, p)
     return [c1,c2]
 
 def decrypt(sk,c):
-    denominator = pow(c[0], sk)
-    m = pow((c[1]/denominator),1,p)
+    m = pow((pow(c[1], 1, p) * pow(c[0], -1 * sk, p)), 1, p)
     return m
