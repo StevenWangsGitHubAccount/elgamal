@@ -15,6 +15,13 @@ def encrypt(pk,m):
     c2 = pow((pow(pk, r, p) * pow(m, 1, p)), 1, p)
     return [c1,c2]
 
+'''
+OK, this works in Jupyter notebook, but not in Codio
 def decrypt(sk,c):
-    m = pow((pow(c[1], 1, p) * pow(c[0], -1 * sk, p)), 1, p)
+    m = pow(pow(c[1], 1, p) * pow(c[0], -1 * sk, p), 1, p)
+    return m
+'''
+
+def decrypt(sk, c):
+    m = pow(pow(c[1], 1, p) * mod_inverse(pow(c[0], sk, p), p), 1, p)
     return m
